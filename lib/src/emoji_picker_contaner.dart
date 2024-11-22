@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget buildEmojiCategories(List<Map<String, Object>> emojiData) {
+Widget buildEmojiCategories(
+    List<Map<String, Object>> emojiData, ScrollController scrollController) {
   return SingleChildScrollView(
     scrollDirection: Axis.horizontal, // This will allow horizontal scrolling
-    controller: ScrollController(), // Add a ScrollController
+    controller: scrollController, // Add a ScrollController
     child: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,11 +138,6 @@ Future<void> showEmojiPicker({
       // Create a ScrollController
       ScrollController scrollController = ScrollController();
 
-      // Reset scroll position to top when the modal is opened
-      Future.delayed(Duration(milliseconds: 100), () {
-        scrollController.jumpTo(0); // Jump to the top
-      });
-
       return Container(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -163,7 +159,7 @@ Future<void> showEmojiPicker({
               },
             ),
             const SizedBox(height: 10),
-            buildEmojiCategories(emojiData),
+            buildEmojiCategories(emojiData, scrollController),
           ],
         ),
       );
